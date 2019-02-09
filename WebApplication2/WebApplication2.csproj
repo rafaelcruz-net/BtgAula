@@ -150,7 +150,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Dominio\Cliente.cs" />
+    <Compile Include="Dominio\IEntity.cs" />
     <Compile Include="Dominio\Repositorio\ClienteRepository.cs" />
+    <Compile Include="Dominio\Repositorio\RepositoryBase.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

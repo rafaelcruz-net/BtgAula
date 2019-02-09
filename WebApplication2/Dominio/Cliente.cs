@@ -5,7 +5,7 @@ using System.Web;
 
 namespace WebApplication2.Dominio
 {
-    public class Cliente
+    public class Cliente : IEntity
     {
         public Int32 Id { get; set; }
 
