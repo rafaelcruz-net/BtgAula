@@ -15,17 +15,17 @@ namespace WebApplication2.Controllers
 
         private ClienteRepository Repository { get; set; } = new ClienteRepository(); 
 
-        public Task<ActionResult> Index()
+        public async Task<ActionResult> Index()
         {
-            return Task.Factory.StartNew<ActionResult>(() => View());
+            return await Task.Factory.StartNew<ActionResult>(() => View());
         }
 
         [HttpGet]
-        public Task<ActionResult> List()
+        public async Task<ActionResult> List()
         {
-            return Task.Factory.StartNew<ActionResult>(() =>
+            return await Task.Factory.StartNew<ActionResult>(() => 
             {
-                var clientes = this.Repository.GetAll();
+                var clientes = this.Repository.GetAllAsync().Result;
 
                 List<ClienteViewModel> result = new List<ClienteViewModel>();
 
@@ -47,27 +47,24 @@ namespace WebApplication2.Controllers
             });
         }
         [HttpPost]
-        public Task<ActionResult> Salvar(ClienteViewModel model)
+        public async Task<ActionResult> Salvar(ClienteViewModel model)
         {
             if (!ModelState.IsValid)
-                return 
+                return await
                     Task.Factory.StartNew<ActionResult>(() => View("Index", ModelState));
 
-            return Task.Factory.StartNew<ActionResult>(() =>
+            return await Task.Factory.StartNew<ActionResult>(() =>
             {
-
-
                 Cliente cliente = new Cliente()
                 {
                     Agencia = model.Agencia,
                     Conta = model.Conta,
                     CPF = model.CPF,
                     Estado = model.Estado,
-                    Nome = model.Nome,
-                    Id = this.Repository.GetAll().Count + 1
+                    Nome = model.Nome
                 };
 
-                this.Repository.Save(cliente);
+                Task.Factory.StartNew(() => this.Repository.SaveAsync(cliente));
 
                 ViewBag.Sucesso = 1;
 

@@ -163,9 +163,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infra\WebContext.cs" />
-    <Compile Include="Migrations\201902161434157_Initial.cs" />
-    <Compile Include="Migrations\201902161434157_Initial.Designer.cs">
-      <DependentUpon>201902161434157_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201902161451548_Initial.cs" />
+    <Compile Include="Migrations\201902161451548_Initial.Designer.cs">
+      <DependentUpon>201902161451548_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ClienteViewModel.cs" />
@@ -227,8 +227,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201902161434157_Initial.resx">
-      <DependentUpon>201902161434157_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201902161451548_Initial.resx">
+      <DependentUpon>201902161451548_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

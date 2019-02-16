@@ -1,32 +1,50 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
+using WebApplication2.Infra;
 
 namespace WebApplication2.Dominio.Repositorio
 {
     public class RepositoryBase<T> where T : class, IEntity
     {
-        private static List<T> Base { get; set; } = new List<T>();
+        private DbSet<T> Set { get; set; }
+        private WebContext Context { get; set; }
 
-        public void Save(T obj) => Base.Add(obj);
-
-        public void Delete(T obj) => Base.Remove(obj);
-
-        public List<T> GetAll() => Base;
-
-        public T Get(int id)
+        public RepositoryBase()
         {
-            return Base.FirstOrDefault(x => x.Id == id);
+            this.Context = new WebContext();
+            this.Set = this.Context.Set<T>();
         }
 
-        public void Update(int id, T objUpdated)
+        public async Task SaveAsync(T obj)
         {
-            var obj = Get(id);
+            this.Set.Add(obj);
+            await this.Context.SaveChangesAsync();
+        }
 
-            this.Delete(obj);
+        public async Task DeleteAsync(T obj)
+        {
+            this.Set.Remove(obj);
+            await this.Context.SaveChangesAsync();
+        }
 
-            this.Save(objUpdated);
+        public async Task<List<T>> GetAllAsync()
+        {
+            return await this.Set.ToListAsync();
+        }
+
+        public async Task<T> GetAsync(int id)
+        {
+            return await this.Set.FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        public async Task UpdateAsync(int id, T objUpdated)
+        {
+            this.Set.Add(objUpdated);
+            await this.Context.SaveChangesAsync();
         }
 
 

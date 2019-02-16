@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using WebApplication2.Dominio;
@@ -12,7 +13,9 @@ namespace WebApplication2.Infra
     {
         public WebContext() :base("DefaultConnection")
         {
-
+            this.Database.Log = (x) => {
+                Trace.Write(x);
+            };
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
