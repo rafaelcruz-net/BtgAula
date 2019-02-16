@@ -69,7 +69,7 @@ namespace WebApplication2.Controllers
                     Nome = model.Nome
                 };
 
-                Task.Factory.StartNew(() => this.Repository.SaveAsync(cliente));
+                Task.Factory.StartNew(async () => await this.Repository.SaveAsync(cliente));
 
                 ViewBag.Sucesso = 1;
 

@@ -43,7 +43,7 @@ namespace WebApplication2.Dominio.Repositorio
 
         public async Task UpdateAsync(int id, T objUpdated)
         {
-            this.Set.Add(objUpdated);
+            this.Context.Entry<T>(objUpdated).State = EntityState.Modified;
             await this.Context.SaveChangesAsync();
         }
 
