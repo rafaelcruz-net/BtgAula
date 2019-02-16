@@ -32,7 +32,7 @@ namespace WebApplication2.Controllers
         [Route("{id}")]
         public async Task<IHttpActionResult> Get(int id)
         {
-            var cliente = await this.Repository.GetAsync(id);
+            var cliente = this.Repository.GetAsync(id).Result;
 
             if (cliente == null)
                 return await Task.Factory.StartNew<IHttpActionResult>(() => NotFound());
