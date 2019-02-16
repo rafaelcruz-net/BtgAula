@@ -13,7 +13,12 @@ namespace WebApplication2.Controllers
     public class HomeController : Controller
     {
 
-        private ClienteRepository Repository { get; set; } = new ClienteRepository(); 
+        private IClienteRepository Repository { get; set; }
+
+        public HomeController(IClienteRepository repository)
+        {
+            this.Repository = repository ?? throw new ArgumentNullException(nameof(repository));
+        }
 
         public async Task<ActionResult> Index()
         {

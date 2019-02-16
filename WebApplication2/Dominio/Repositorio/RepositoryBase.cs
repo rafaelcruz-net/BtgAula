@@ -8,14 +8,14 @@ using WebApplication2.Infra;
 
 namespace WebApplication2.Dominio.Repositorio
 {
-    public class RepositoryBase<T> where T : class, IEntity
+    public class RepositoryBase<T> : IRepository<T> where T : class, IEntity
     {
         private DbSet<T> Set { get; set; }
         private WebContext Context { get; set; }
 
-        public RepositoryBase()
+        public RepositoryBase(WebContext context)
         {
-            this.Context = new WebContext();
+            this.Context = context ?? throw new ArgumentNullException(nameof(context));
             this.Set = this.Context.Set<T>();
         }
 
